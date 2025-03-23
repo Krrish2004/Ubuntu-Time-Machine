@@ -1,0 +1,11 @@
+Package: ubuntu-time-machine
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27), libstdc++6 (>= 8.0), libgtk-3-0 (>= 3.18.9), libnotify4 (>= 0.7.0)
+Maintainer: Ubuntu Time Machine Team <support@ubuntutimemachine.org>
+Homepage: https://github.com/ubuntu/time-machine
+Description: Professional backup and restore utility for Ubuntu
+ Ubuntu Time Machine provides backup and restore functionality
+ with versioning support.

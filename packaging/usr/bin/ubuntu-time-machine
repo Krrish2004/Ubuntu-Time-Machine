@@ -1,0 +1,3 @@
+#!/bin/sh
+# Launcher for Ubuntu Time Machine
+exec /usr/lib/ubuntu-time-machine/ubuntu-time-machine "$@"

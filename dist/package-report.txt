@@ -1,0 +1,83 @@
+Ubuntu Time Machine Package Report
+==================================
+
+Package Information:
+  Name:        ubuntu-time-machine
+  Version:     1.0.0
+  Maintainer:  Ubuntu Time Machine Team <support@ubuntutimemachine.org>
+  Date:        $(date)
+  Size:        1133012 bytes (1.08 MB)
+
+Package Contents:
+------------------
+drwxr-xr-x root/root         0 2025-03-23 22:27 ./
+drwxr-xr-x root/root         0 2025-03-23 22:27 ./usr/
+drwxr-xr-x root/root         0 2025-03-23 22:28 ./usr/bin/
+-rwxr-xr-x root/root       104 2025-03-23 22:28 ./usr/bin/ubuntu-time-machine
+-rwxr-xr-x root/root    125144 2025-03-23 22:28 ./usr/bin/utm-core
+drwxr-xr-x root/root         0 2025-03-23 22:27 ./usr/lib/
+drwxr-xr-x root/root         0 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/
+-rw-r--r-- root/root       512 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/index.html
+-rw-r--r-- root/root    511688 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/libutm_core.so
+-rw-r--r-- root/root     22902 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/main.js
+-rw-r--r-- root/root       149 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/main.js.LICENSE.txt
+-rw-r--r-- root/root     61427 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/main.js.map
+-rw-r--r-- root/root      3051 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/preload.js
+-rw-r--r-- root/root    970765 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/renderer.js
+-rw-r--r-- root/root      2385 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/renderer.js.LICENSE.txt
+-rw-r--r-- root/root   5067991 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/renderer.js.map
+-rw-r--r-- root/root      8341 2025-03-23 22:28 ./usr/lib/ubuntu-time-machine/simple-main.js
+drwxr-xr-x root/root         0 2025-03-23 22:27 ./usr/share/
+drwxr-xr-x root/root         0 2025-03-23 22:28 ./usr/share/applications/
+-rw-r--r-- root/root       286 2025-03-23 22:28 ./usr/share/applications/ubuntu-time-machine.desktop
+
+Package Control Information:
+-------------------------
+Package: ubuntu-time-machine
+Version: 1.0.0
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.27), libstdc++6 (>= 8.0), libgtk-3-0 (>= 3.18.9), libnotify4 (>= 0.7.0)
+Maintainer: Ubuntu Time Machine Team <support@ubuntutimemachine.org>
+Homepage: https://github.com/ubuntu/time-machine
+Description: Professional backup and restore utility for Ubuntu
+ Ubuntu Time Machine provides backup and restore functionality
+ with versioning support.
+
+Lintian Issues:
+------------
+E: ubuntu-time-machine: custom-library-search-path RUNPATH /home/krrish/TM/~/TM/ubuntu-time-machine/build/src/core [usr/bin/utm-core]
+E: ubuntu-time-machine: no-changelog usr/share/doc/ubuntu-time-machine/changelog.gz (native package)
+E: ubuntu-time-machine: no-copyright-file
+E: ubuntu-time-machine: unstripped-binary-or-object [usr/bin/utm-core]
+E: ubuntu-time-machine: unstripped-binary-or-object [usr/lib/ubuntu-time-machine/libutm_core.so]
+W: ubuntu-time-machine: no-manual-page [usr/bin/ubuntu-time-machine]
+W: ubuntu-time-machine: no-manual-page [usr/bin/utm-core]
+W: ubuntu-time-machine: privacy-breach-generic [link to external resource] [usr/lib/ubuntu-time-machine/index.html]
+
+Installation Instructions:
+-----------------------
+To install this package:
+```
+sudo dpkg -i ubuntu-time-machine_1.0.0_amd64.deb
+sudo apt-get install -f  # Install any missing dependencies
+```
+
+To verify the installation:
+```
+which ubuntu-time-machine
+/usr/bin/ubuntu-time-machine --version
+```
+
+Improvements for Production Release:
+---------------------------------
+1. Add copyright file
+2. Add changelog
+3. Strip debug symbols from binaries
+4. Add manual pages
+5. Remove embedded external resources in HTML files
+6. Fix library search paths in binaries
+7. Add proper package signing
+
+This report was generated on: $(date) 

@@ -1,0 +1,61 @@
+#!/bin/sh
+set -e
+
+# Create necessary directories if they don't exist
+mkdir -p /etc/ubuntu-time-machine
+mkdir -p /var/lib/ubuntu-time-machine
+mkdir -p /var/log/ubuntu-time-machine
+
+# Create default configuration if it doesn't exist
+if [ ! -f /etc/ubuntu-time-machine/daemon.conf ]; then
+    cat > /etc/ubuntu-time-machine/daemon.conf << EOF
+{
+    "backup": {
+        "interval": 3600,
+        "max_versions": 10,
+        "compression_level": 6
+    },
+    "logging": {
+        "level": "info",
+        "path": "/var/log/ubuntu-time-machine/daemon.log"
+    }
+}
+EOF
+fi
+
+# Set permissions
+chown -R root:root /etc/ubuntu-time-machine
+chmod -R 755 /etc/ubuntu-time-machine
+chmod 644 /etc/ubuntu-time-machine/daemon.conf
+
+# Create a launcher script in /usr/bin
+cat > /usr/bin/ubuntu-time-machine << EOF
+#!/bin/sh
+# Ubuntu Time Machine launcher script
+exec /usr/share/ubuntu-time-machine/gui/main.js "\$@"
+EOF
+chmod 755 /usr/bin/ubuntu-time-machine
+
+# Register and start the systemd service if systemd is running
+if [ -d /run/systemd/system ]; then
+    systemctl daemon-reload
+    # Only enable the service, don't start it automatically
+    systemctl enable ubuntu-time-machine.service
+    echo "Ubuntu Time Machine service has been installed but not started."
+    echo "To start the service manually, run: sudo systemctl start ubuntu-time-machine.service"
+fi
+
+# Update desktop database and icon cache
+if command -v update-desktop-database >/dev/null 2>&1; then
+    update-desktop-database -q
+fi
+
+if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+    gtk-update-icon-cache -qtf /usr/share/icons/hicolor/
+fi
+
+# Display installation complete message
+echo "Ubuntu Time Machine installation complete!"
+echo "You can start the application from the application menu or by running 'ubuntu-time-machine'."
+
+exit 0 

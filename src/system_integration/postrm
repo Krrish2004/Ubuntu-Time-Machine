@@ -1,0 +1,37 @@
+#!/bin/sh
+set -e
+
+# Function to remove empty directories
+remove_if_empty() {
+    if [ -d "$1" ]; then
+        if [ -z "$(ls -A "$1")" ]; then
+            rmdir "$1"
+        fi
+    fi
+}
+
+if [ "$1" = "purge" ]; then
+    # Remove configuration files and directories
+    rm -rf /etc/ubuntu-time-machine
+    rm -rf /var/lib/ubuntu-time-machine
+    rm -rf /var/log/ubuntu-time-machine
+else
+    # Just in case, remove the launcher script
+    rm -f /usr/bin/ubuntu-time-machine
+fi
+
+# Reload systemd
+if [ -d /run/systemd/system ]; then
+    systemctl daemon-reload || true
+fi
+
+# Update desktop database and icon cache
+if command -v update-desktop-database >/dev/null 2>&1; then
+    update-desktop-database -q
+fi
+
+if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+    gtk-update-icon-cache -qtf /usr/share/icons/hicolor/
+fi
+
+exit 0 

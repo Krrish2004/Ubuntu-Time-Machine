@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ubuntu Time Machine
+GenericName=Backup Tool
+Comment=Backup and restore your system with versioning
+Exec=/usr/bin/ubuntu-time-machine
+Icon=ubuntu-time-machine
+Terminal=false
+Type=Application
+Categories=Utility;System;Archiving;
+Keywords=backup;restore;time machine;

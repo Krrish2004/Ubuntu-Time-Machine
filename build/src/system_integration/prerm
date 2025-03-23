@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+# Stop the application if it's running
+pkill -f ubuntu-time-machine || true
+
+# Stop and disable the systemd service if systemd is running
+if [ -d /run/systemd/system ]; then
+    systemctl --no-reload disable ubuntu-time-machine.service || true
+    systemctl stop ubuntu-time-machine.service || true
+fi
+
+exit 0 

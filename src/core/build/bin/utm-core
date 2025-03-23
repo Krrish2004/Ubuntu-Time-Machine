@@ -1,0 +1,15 @@
+#!/bin/bash
+echo "UTM Core Mock"
+echo "Command: $@"
+
+if [[ "$1" == "--list-profiles" ]]; then
+  echo "- Default Profile"
+  echo "- Home Backup"
+  echo "- Documents"
+fi
+
+if [[ "$1" == "system-info" ]]; then
+  echo '{"storage":{"total":1000000000,"used":450000000,"available":550000000},"cpu":{"usage":15},"memory":{"usagePercent":35},"uptime":"5 days, 7 hours"}'
+fi
+
+exit 0

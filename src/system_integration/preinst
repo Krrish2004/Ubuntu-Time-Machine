@@ -1,0 +1,32 @@
+#!/bin/sh
+set -e
+
+# Check for minimum system requirements
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    if [ "$ID" != "ubuntu" ] && [ "$ID_LIKE" != "ubuntu" ] && [ "$ID" != "debian" ] && [ "$ID_LIKE" != "debian" ]; then
+        echo "WARNING: This package is designed for Ubuntu/Debian systems."
+        echo "Installation on other distributions may not work correctly."
+    fi
+    
+    if [ -n "$VERSION_ID" ] && [ "$VERSION_ID" \< "20.04" ] && [ "$ID" = "ubuntu" ]; then
+        echo "WARNING: This package requires Ubuntu 20.04 or later."
+        echo "Installation on earlier versions may not work correctly."
+    fi
+fi
+
+# Check for Node.js
+if ! command -v node >/dev/null 2>&1; then
+    echo "WARNING: Node.js not found. Ubuntu Time Machine requires Node.js 14 or later."
+    echo "You may need to install it manually with: sudo apt install nodejs"
+fi
+
+# Check for disk space
+REQUIRED_SPACE=100000  # 100MB in KB
+AVAILABLE_SPACE=$(df -k /usr | awk 'NR==2 {print $4}')
+if [ "$AVAILABLE_SPACE" -lt "$REQUIRED_SPACE" ]; then
+    echo "WARNING: Insufficient disk space. Ubuntu Time Machine requires at least 100MB of free space."
+fi
+
+# Continue with installation
+exit 0 
